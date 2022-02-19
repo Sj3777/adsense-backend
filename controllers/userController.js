@@ -55,6 +55,7 @@ exports.loginUser = async (req, res) => {
                     message: "Invalid Credentials!",
                   });
             }
+            console.log("Logged in successfully");
             return res.status(200).send({
                 status: "Success",
                 message: "Logged in successfully!",

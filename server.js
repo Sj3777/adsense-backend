@@ -9,6 +9,8 @@ mongoose.connect(config.database, {
     useNewUrlParser: true , useUnifiedTopology: true,
 }).then(async(con)=>{
       console.log("Db connected successfully");
+}).catch((err)=>{
+    console.log(err);
 })
 // var db = mongoose.connection;
 // db.on("error", function (err) {});
