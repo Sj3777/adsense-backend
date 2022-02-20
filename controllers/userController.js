@@ -55,11 +55,13 @@ exports.loginUser = async (req, res) => {
                     message: "Invalid Credentials!",
                   });
             }
-            console.log("Logged in successfully");
+            console.log("Logged in successfully", user);
             return res.status(200).send({
                 status: "Success",
                 message: "Logged in successfully!",
+                data: user
               });
+             
         }
     } catch (error) {
         console.log(error);
