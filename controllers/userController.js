@@ -1,4 +1,7 @@
 const User = require("../models/User");
+const accountSid = process.env.SID;
+const authToken = process.env.AUTH_TOKEN;
+const client = require('twilio')("AC03562a7812838c0749ac4d333338cc0d", "d1e75a11ff8011ba1470029968e93742");
 
 exports.registerUser = async (req, res) => {
   try {
@@ -67,3 +70,32 @@ exports.loginUser = async (req, res) => {
         console.log(error);
     }
 };
+
+//phone verification
+exports.phoneVerification = async (req, res) => {
+  client.verify.services(process.env.serviceID).verifications.create({
+    to: `+${req.body.phoneNumber}`,
+    channel: req.body.channel
+  }).then( data => {
+    console.log("Otp is sent to your Phone Number: " + req.body.phoneNumber);
+    res.status(200).send(data);
+  }).catch((err)=>{
+    console.log("err", err);
+    res.status(400).send(err);
+  })
+
+}
+
+//verify the otp 
+exports.verifyOtp = async (req, res) => {
+  client.verify.services(process.env.serviceID).verificationChecks.create({
+    to: `+${req.body.phoneNumber}`,
+    code: req.body.code
+  }).then(data => {
+    console.log("You are successfully: " + data.status);
+    console.log("Phone number verified successfully!");
+    res.status(200).send(data);
+  }).catch((err)=>{
+    res.status(400).send(err);
+  })
+}

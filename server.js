@@ -5,6 +5,10 @@ require("./app")(app);
 var config = require("./config");
 const port=7000;
 
+require('dotenv').config()
+
+
+
 mongoose.connect(config.database, {
     useNewUrlParser: true , useUnifiedTopology: true,
 }).then(async(con)=>{
